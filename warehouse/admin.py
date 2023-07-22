@@ -20,7 +20,6 @@ class WarehouseAdmin(admin.ModelAdmin):
         return False
 
     def save_model(self, request, obj, form, change):
-        obj.save()
         service = get_order_update_service()
 
         try:
@@ -30,6 +29,7 @@ class WarehouseAdmin(admin.ModelAdmin):
                     status=obj.status
                 )
             )
+            obj.save()
         except BaseIntegrationError as err:
             logger.error('Order %s update failed! Error: %s',
                          obj.order_number, str(err))

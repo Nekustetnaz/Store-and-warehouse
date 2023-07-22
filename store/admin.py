@@ -26,7 +26,6 @@ class StoreAdmin(admin.ModelAdmin):
                 )
             )
             obj.save()
-
         except BaseIntegrationError as err:
             logger.error('Order %s placement failed! Error: %s',
                          obj.order_number, str(err))

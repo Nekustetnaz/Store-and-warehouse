@@ -1,7 +1,8 @@
 from enum import Enum
+from http import HTTPStatus
 from typing import Any, Mapping, Optional
 
-from requests import HTTPError, Session
+from requests import HTTPError, RequestException, Session
 
 
 class HttpMethodEnum(str, Enum):
@@ -30,7 +31,13 @@ class RequestsHttpTransport:
         params: Optional[Mapping[str, str]] = None,
         data: Optional[dict[Any, Any]] = None,
     ) -> Any:
-        response = self._session.request(method, url, params, data, headers)
+
+        try:
+            response = self._session.request(method, url, params, data,
+                                             headers)
+        except RequestException:
+            raise BaseHttpTransportError(HTTPStatus.SERVICE_UNAVAILABLE,
+                                         'No connection to remote service')
 
         try:
             response.raise_for_status()

@@ -16,7 +16,6 @@ class StoreAdmin(admin.ModelAdmin):
         return False
 
     def save_model(self, request, obj, form, change):
-        obj.save()
         service = get_order_placement_service()
 
         try:
@@ -26,6 +25,8 @@ class StoreAdmin(admin.ModelAdmin):
                     status=obj.status
                 )
             )
+            obj.save()
+
         except BaseIntegrationError as err:
             logger.error('Order %s placement failed! Error: %s',
                          obj.order_number, str(err))

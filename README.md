@@ -1,10 +1,10 @@
-# Store and warehouse in one django project
+# Store and warehouse
 
-## Description
-This project consists of two Django apps - Store and Warehouse,
-that communicate via Rest API.
+### Description
+This is an interesting test case from a job interview. <br>
+There are three django apps (Auth, Store and Warehouse) with three separate databases in one django project. The Store provides orders. The warehouse receives these orders via the API and push back information to the Store. So when Store creates and order, this is synced to the Warehouse. If Warehouse changes some information this will update the information in Store. The applications can only communicate via Rest API.
 
-## Run service:
+### Run service:
 To run the service, use the commands:
 ```
 # Clone the repository:
@@ -36,10 +36,10 @@ python manage.py runserver 8001
 python manage.py runserver 8002
 ```
 
-## Technologies
+### Technologies
 Python 3 <br>
 Django 4 <br>
 Django Rest Framework <br>
 
-## Author
+### Author
 Anton Akulov - https://github.com/Nekustetnaz
